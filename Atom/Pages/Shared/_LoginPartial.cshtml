@@ -1,0 +1,56 @@
+﻿<b class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</b>
+<div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px; text-align: center;">
+    <span class="form-horizontal">
+        <input class="form-control login mb-2" id="txtLoginUserEmail" type="email" name="email" placeholder="Email Address">
+        <input class="form-control login mb-2" id="txtLoginUserPassword" type="password" name="password" placeholder="Password">
+        <input class="btn btn-primary" value="Login" type="button" Onclick="LoginUser()">
+        @*<input class="btn btn-primary" type="submit" name="submit" value="Sign in with Google">*@
+    </span>
+</div>
+
+<script>
+    async function LoginUser() {
+        var isValid = true;
+
+        var password = $("#txtLoginUserPassword").val();
+        var email = $("#txtLoginUserEmail").val();
+
+        if (!password) {
+            var password = document.getElementById('txtLoginUserPassword');
+            password.setCustomValidity("A Password is required");
+            document.getElementById('txtLoginUserPassword').reportValidity();
+            isValid = false;
+        }
+
+        if (!email) {
+            var email = document.getElementById('txtLoginUserEmail');
+            email.setCustomValidity("An Email is required");
+            document.getElementById('txtLoginUserEmail').reportValidity();
+            isValid = false;
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        var url = '/api/security/LoginUser/';
+        const data = { email: email, password: password };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            Accept: 'application/json'
+            })
+            .then(response => console.log(response))
+            .then(data => {
+                console.log(data);
+                window.location.href = window.location.href;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+</script>

@@ -1,0 +1,53 @@
+﻿@page
+@model Atom.Pages.UserSettings.ThemeSettingsModel
+@{
+    ViewData["Title"] = "Theme Settings";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+
+<form class="themeSettings" method="post">
+
+    <h2 id="background">Background Color</h2>
+    <input type="color" class="backgroundColor" asp-for="BackgroundColor.CSSVariableValue"/>
+    <input hidden asp-for="BackgroundColor.UserId" />
+    <input hidden asp-for="BackgroundColor.CSSVariableId" />
+    <input hidden asp-for="BackgroundColor.CSSGuid" />
+    <input hidden asp-for="BackgroundColor.CSSId" />
+
+
+    <h2>Footer Color</h2>
+    <input type="color" class="footerColor" asp-for="FooterColor.CSSVariableValue"/>
+    <input hidden asp-for="FooterColor.UserId" />
+    <input hidden asp-for="FooterColor.CSSVariableId" />
+    <input hidden asp-for="FooterColor.CSSGuid" />
+    <input hidden asp-for="FooterColor.CSSId" />
+
+    <h2>Text Color</h2>
+    <input type="color" class="textColor" asp-for="TextColor.CSSVariableValue" />
+    <input hidden asp-for="TextColor.UserId" />
+    <input hidden asp-for="TextColor.CSSVariableId" />
+    <input hidden asp-for="TextColor.CSSGuid" />
+    <input hidden asp-for="TextColor.CSSId" />
+
+    <h2>Button Color</h2>
+    <input type="color" class="buttonColor" asp-for="ButtonColor.CSSVariableValue"/>
+    <input hidden asp-for="ButtonColor.UserId" />
+    <input hidden asp-for="ButtonColor.CSSVariableId" />
+    <input hidden asp-for="ButtonColor.CSSGuid" />
+    <input hidden asp-for="ButtonColor.CSSId" />
+
+
+    <button class="saveBtn">Save</button>
+
+    <button class="resetBtn" asp-page-handler="ResetButton" id="resetBtn">Reset</button>
+
+</form>
+
+
+
+
+    
+
+

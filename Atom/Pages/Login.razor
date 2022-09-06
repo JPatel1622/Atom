@@ -1,0 +1,46 @@
+﻿<h1>ok</h1>
+<EditForm>
+    <b class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</b>
+    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 10px;">
+        <InputText class="form-control login" @bind-Value="@EmailAddress" placeholder="Email Address" />
+        <InputText class="form-control login" @bind-Value="@Password" placeholder="Password" />
+
+        <button class="btn btn-primary" type="submit" @onclick="(() => Login_Click())">Login</button>
+
+        @*<input class="form-control login" type="password" name="password" placeholder="Password">
+            <input class="btn btn-primary" type="submit" name="submit" value="Login" @onclick="Login_Click">*@
+        <input class="btn btn-primary" type="submit" name="submit" value="Sign in with Google">
+        <!--                                        //chane to google sign in^
+        <div class="row">
+            <div class="col-md-3">
+                <a class="btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none">
+                    <img width="20px"
+                    style="margin-bottom:3px; margin-right:5px"
+                    alt="Google sign-in"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    Login with Google
+                </a>
+            </div>
+        </div>
+        -->
+
+    </div>
+</EditForm>
+
+@code {
+    @using Atom.Data.Manager
+    @inject ISecurityManager SecurityManager
+    @using System.ComponentModel.DataAnnotations;
+
+    [EmailAddress]
+    [DataType(DataType.EmailAddress)]
+    private string EmailAddress { get; set; }
+
+    [DataType(DataType.Password)]
+    private string Password { get; set; }
+
+    private void Login_Click()
+    {
+
+    }
+}

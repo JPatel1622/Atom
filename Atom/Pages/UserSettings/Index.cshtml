@@ -1,0 +1,21 @@
+﻿@page
+@model Atom.Pages.UserSettings.IndexModel
+@{
+    ViewData["Title"] = "User Settings";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+
+<div class="dashboard">
+    <a class="card" asp-page="/UserSettings/AccountInfo">
+        <h2>Account Settings</h2>
+    </a>
+    @if (Model.IsLoggedIn) {
+    <a class="card" asp-page="/UserSettings/ThemeSettings">
+        <h2>Theme Settings</h2>
+    </a>
+    }
+
+</div>
+

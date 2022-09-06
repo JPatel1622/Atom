@@ -1,0 +1,67 @@
+﻿@using Atom.Extensions.HttpContext
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="~/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Savannah Events</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" asp-append-version="true" href="~/css/site.css" />
+    <link rel="icon" href="images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" asp-append-version="true" href="~/api/css/CSSRules" type="text/css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://kit.fontawesome.com/0add20c39d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <script src="https://unpkg.com/@@popperjs/core@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.css" integrity="sha256-jLWPhwkAHq1rpueZOKALBno3eKP3m4IMB131kGhAlRQ=" crossorigin="anonymous">
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">*@
+</head>
+<body>
+    <header>
+        <div class="row justify-content-center">
+            <img src="~/images/progress.png" alt="Savannah Events logo">
+        </div>
+        <div class="container p-0 m-0" style="max-width: none;">
+            <div class="d-flex justify-content-around bg-white">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Savannah Events</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/UserSettings/Index">User Settings</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/OrganizationSettings/Index">Organization Settings</a>
+                <a class="nav-link text-dark" asp-area="" asp-page="/EventSearch/Index">Event Search</a>
+
+                @if (this.Context.User.Identity.IsAuthenticated)
+                {
+                    <partial name="_LoggedInPartial" />
+                }
+                else
+                {
+                    <partial name="_LoginPartial" />
+                }
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            Computer Science Capstone
+            <br>
+            <a href="mailto:pr04494@georgiasouthern.edu">Contact</a>    <!--make SE email??-->
+            &copy; 2022 - Savannah Events - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

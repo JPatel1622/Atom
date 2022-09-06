@@ -1,0 +1,176 @@
+﻿@page
+@model Atom.Pages.EventSearch.IndexModel
+@{
+    ViewData["Title"] = "Event Search";
+}
+@using System.Globalization
+
+@{ bool isLoggedIn = Model.IsLoggedIn; }
+
+<h1 class="my-3">@ViewData["Title"]</h1>
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="SearchOptions.Name"></label>
+                            <input asp-for="SearchOptions.Name" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SearchOptions.StartTime"></label>
+                            <input asp-for="SearchOptions.StartTime" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="SearchOptions.EndTime"></label>
+                            <input asp-for="SearchOptions.EndTime" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="custom-control custom-switch">
+                            <input asp-for="SearchOptions.IsForKids" class="custom-control-input">
+                            <label asp-for="SearchOptions.IsForKids" class="custom-control-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="custom-control custom-switch">
+                            <input asp-for="SearchOptions.IsPaid" class="custom-control-input">
+                            <label asp-for="SearchOptions.IsPaid" class="custom-control-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-around align-items-center">
+                    @if (Model.FlattenedEvents != null && Model.FlattenedEvents.Any())
+                    {
+                        @foreach (Atom.Events.Interface.IEvent e in Model.FlattenedEvents)
+                        {
+                            <div class="col-12 col-md-5 m-2">
+                                <div class="card" style="box-shadow: 0.5px 0.5px var(--dark);">
+                                    <div class="card-header bg-light">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @if (isLoggedIn)
+                                                {
+                                                    if (Model.UsersFavorites.FirstOrDefault(x => x?.EventTypeId == e?.EventType && x?.EventId == e?.EventID) == null)
+                                                    {
+                                                        <i class="far fa-2x fa-star col-2 position-absolute" style="margin-top: 8px; z-index: 1000;" onclick="FavoriteClick(event);"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fas fa-2x fa-star col-2 position-absolute favorite" style="margin-top: 8px; z-index: 1000;" onclick="FavoriteClick(event);"></i>
+                                                    }
+                                                }
+                                               
+                                                <h1 class="col-10" style="position: relative; left: 50%; transform: translateX(-50%);">@e.Name</h1>
+                                                <input class="eventType" type="hidden" hidden value="@e.EventType" />
+                                                <input class="eventID" type="hidden" hidden value="@e.EventID" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body bg-light event">
+                                        <div class="row">
+                                            <div class="col-12 text-center my-2">
+                                                <img src="@e.ImageURL" />
+                                            </div>
+                                            <div class="col-12">
+                                                <h5 class="text-center">@e.Description</h5>
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <label>@e.StartDate - @e.EndDate</label>
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <label>@e.Location</label>
+                                            </div>
+                                            <div class="col d-flex text-center">
+                                                @if (e.Cost != null)
+                                                {
+                                                    <div class="col">
+                                                        <label>@(((double)e.Cost).ToString("C2", CultureInfo.CurrentCulture))</label>
+                                                    </div>
+                                                }
+                                                @if (!string.IsNullOrEmpty(e.HostedBy))
+                                                {
+                                                    <div class="col">
+                                                        <label>@e.HostedBy</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function FavoriteClick(e) {
+        var target = $(e.currentTarget);
+        target.toggleClass('favorite');
+        if (target.hasClass('favorite')) {
+            SaveFavorite(e);
+
+            target.removeClass('far');
+            target.addClass('fas');
+        } else {
+            RemoveFavorite(e);
+            target.removeClass('fas');
+            target.addClass('far');
+
+        }
+    }
+
+
+    function SaveFavorite(e) {
+        var star = $(e.currentTarget);
+
+        var eventType = star.siblings('.eventType').val();
+        var eventID = star.siblings('.eventID').val();
+        const favorite = { EventType: eventType, EventID: eventID };
+
+        var url = '/api/security/SaveFavorite';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(favorite),
+        })
+    }
+
+    function RemoveFavorite(e) {
+        var star = $(e.currentTarget);
+
+        var eventType = star.siblings('.eventType').val();
+        var eventID = star.siblings('.eventID').val();
+        const favorite = { EventType: eventType, EventID: eventID };
+
+        var url = '/api/security/RemoveFavorite';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(favorite),
+        })
+    }
+</script>

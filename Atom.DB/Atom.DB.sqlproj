@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Atom.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{c588499b-6b86-4e1f-82f7-639fe2d79a22}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Atom.DB</RootNamespace>
+    <AssemblyName>Atom.DB</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Deployment" />
+    <Folder Include="Deployment\SeedScript" />
+    <Folder Include="sec" />
+    <Folder Include="sec\Function" />
+    <Folder Include="sec\StoredProcedure" />
+    <Folder Include="sec\Table" />
+    <Folder Include="css" />
+    <Folder Include="css\Table" />
+    <Folder Include="lkup" />
+    <Folder Include="lkup\Table" />
+    <Folder Include="css\StoredProcedure" />
+    <Folder Include="SeedScripts" />
+    <Folder Include="org" />
+    <Folder Include="org\Table" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Deployment\Build.sql" />
+    <Build Include="sec\Function\udf_GetHash.sql" />
+    <Build Include="sec\StoredProcedure\up_LoginUser.sql" />
+    <Build Include="sec\StoredProcedure\up_CreateUser.sql" />
+    <Build Include="sec\Table\User.sql" />
+    <Build Include="sec\StoredProcedure\up_GetAllUsers.sql" />
+    <Build Include="sec\StoredProcedure\up_GetUser.sql" />
+    <Build Include="sec\Table\Role.sql" />
+    <Build Include="lkup\Table\RoleType.sql" />
+    <Build Include="org\Table\Organization.sql" />
+    <Build Include="sec\StoredProcedure\up_GetUserRoles.sql" />
+    <Build Include="css\Table\Rule.sql" />
+    <Build Include="lkup\Table\CSSVariable.sql" />
+    <Build Include="css\StoredProcedure\up_GetCSS.sql" />
+    <Build Include="css\StoredProcedure\up_SaveCSS.sql" />
+    <Build Include="sec\Table\UserFavorite.sql" />
+    <Build Include="lkup\Table\EventType.sql" />
+    <Build Include="sec\StoredProcedure\up_GetUserFavoriteEvents.sql" />
+    <Build Include="sec\StoredProcedure\up_RemoveUserFavoriteEvent.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Deployment\PostDeployment.sql" />
+    <None Include="Deployment\SeedScript\css.sql" />
+    <None Include="Deployment\SeedScript\lkup.sql" />
+    <None Include="Deployment\SeedScript\org.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Deployment\SeedScript\sec.sql" />
+    <None Include="Atom.DB.publish.xml" />
+  </ItemGroup>
+</Project>

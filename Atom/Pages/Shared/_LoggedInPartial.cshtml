@@ -1,0 +1,10 @@
+﻿@using Atom.Data.Model.Security
+@using Microsoft.AspNetCore.Http
+@using Atom.Extensions.HttpContext
+@inject IHttpContextAccessor context
+
+@{
+    UserModel user = context.HttpContext.GetUserModel();
+}
+
+<label class="nav-link" style="align-self: center;">@user?.UserName</label>

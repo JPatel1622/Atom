@@ -1,0 +1,156 @@
+﻿@page
+@model Atom.Pages.UserSettings.AccountInfoModel
+@{
+    ViewData["Title"] = "Account Settings";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <form method="post">
+                <div class="accountSettings">
+
+                    @*<div class="accountSettingsLeft">*@
+                    <div class="container">
+                        <div class="row">
+
+                            @*<label class="col-12 text-info">Create User</label>*@
+
+
+                            <div class="col-12">
+                                @*<i class="fa-solid fa-envelope"></i>*@
+                                <label class="accountLabels" asp-for="NewUser.EmailAddress" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="NewUser.EmailAddress" required />
+                                <span asp-validation-for="NewUser.EmailAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                @*<i class="fa-solid fa-key"></i>*@
+                                <label class="accountLabels" asp-for="NewUser.Password" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="NewUser.Password" required />
+                                <span asp-validation-for="NewUser.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="NewUser.FirstName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="NewUser.FirstName" required />
+                                <span asp-validation-for="NewUser.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="NewUser.LastName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="NewUser.LastName" required />
+                                <span asp-validation-for="NewUser.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="NewUser.UserName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="NewUser.UserName" required />
+                                <span asp-validation-for="NewUser.UserName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @*<button class="saveBtn">Save</button>*@
+                            <div class="col-12">
+                                <button class="saveBtn" type="submit" asp-page-handler="CreateNewUser" class="mt-1">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                    @* </div>*@
+
+                </div>
+
+            </form>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-4">
+            <form method="post">
+                <div class="accountSettings">
+
+                    @*<div class="accountSettingsRight">*@
+                    <div class="container">
+                        <div class="row">
+
+                            @*<label class="col-12 text-info">Update Found User</label>*@
+
+                            <div class="col-12">
+                                @*<i class="fa-solid fa-envelope"></i>*@
+                                <label class="accountLabels" asp-for="FoundUser.EmailAddress" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="FoundUser.EmailAddress" required />
+                                <span asp-validation-for="FoundUser.EmailAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                @*<i class="fa-solid fa-key"></i>*@
+                                <label class="accountLabels" asp-for="FoundUser.Password" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="FoundUser.Password" required />
+                                <span asp-validation-for="FoundUser.Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="FoundUser.FirstName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="FoundUser.FirstName" />
+                                <span asp-validation-for="FoundUser.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="FoundUser.LastName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="FoundUser.LastName" />
+                                <span asp-validation-for="FoundUser.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="accountLabels" asp-for="FoundUser.UserName" class="mb-0 mt-1"></label>
+                            </div>
+                            <div class="col-12">
+                                <input class="accountInputs" asp-for="FoundUser.UserName" />
+                                <span asp-validation-for="FoundUser.UserName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input hidden asp-for="FoundUser.UserGuid" />
+
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="saveBtn" type="submit" asp-page-handler="UpdateUser" class="mt-1">Update</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    @*</div>*@
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
